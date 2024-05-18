@@ -1,0 +1,25 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    "**/.*",
+    "**/node_modules",
+    // ! custom
+    "**/*urls.ts",
+    "test/utils.common.test.ts"
+  ],
+  "files": [
+    "**/*.ts",
+    "**/*.json"
+  ],
+  "words": [
+    "domhandler",
+    "jsessionid",
+    "Repobeats",
+    "serverid",
+    "unsubmitted",
+    "vanjs",
+    "webvpn",
+    "ZHJW"
+  ]
+}

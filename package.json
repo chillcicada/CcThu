@@ -1,0 +1,58 @@
+{
+  "name": "cc-thu",
+  "displayName": "ccThu",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "bun@1.1.8",
+  "author": {
+    "name": "chillcicada",
+    "email": "2210227279@qq.com"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/chillcicada/ccthu",
+  "keywords": [
+    "API server",
+    "THU"
+  ],
+  "module": "index.ts",
+  "scripts": {
+    "dev": "NODE_ENV=development bun --watch index.ts",
+    "build": "NODE_ENV=production bun build index.ts",
+    "start": "NODE_ENV=production bun index.ts",
+    "test": "NODE_ENV=test bun test",
+    "test:cov": "NODE_ENV=test bun test --update-snapshots --coverage",
+    "test:up": "NODE_ENV=test bun test --update-snapshots",
+    "test:upw": "NODE_ENV=test bun test --update-snapshots --watch",
+    "test:watch": "NODE_ENV=test bun test --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "bunx simple-git-hooks"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/cron": "^1.0.3",
+    "@elysiajs/swagger": "^1.0.5",
+    "cheerio": "^1.0.0-rc.12",
+    "elysia": "^1.0.15",
+    "entities": "^4.5.0",
+    "vanjs-core": "^1.5.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.16.0",
+    "@elysiajs/eden": "^1.0.12",
+    "@types/bun": "latest",
+    "domhandler": "^5.0.3",
+    "eslint": "8.57.0",
+    "eslint-plugin-format": "^0.1.1",
+    "lint-staged": "^15.2.2",
+    "simple-git-hooks": "^2.11.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bunx lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,json}": "eslint --fix"
+  }
+}

@@ -1,0 +1,7 @@
+- [ ] base feature (Thu-Learn-Lib)
+- [ ] advance feature (Thu-Info-Lib)
+- [ ] log
+- [ ] encrypt (offically release)
+- [ ] swagger (i.e. docs)
+- [ ] cron and task
+- [ ] auto router / response to request
