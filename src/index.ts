@@ -26,21 +26,9 @@ interface HMRConfig {
 //   } = cfg
 
 //   const app = new Elysia({ name: 'modulesPlugin' })
+//     .post('/*', async ({ params, body }) => {
 
-//   fs.readdirSync(modulesPath).forEach((file) => {
-//     if (!file.endsWith('.ts') || excludeFiles.includes(file))
-//       return
-
-//     const name = file.replace(/\.ts$/, '')
-
-//     app.post(`/${name}`, async (req, res) => {
-//       const module = await import(path.join(modulesPath, file))
-
-//       const result = await module.default(req.body)
-
-//       res.json(result)
 //     })
-//   })
 
 //   return app
 // }

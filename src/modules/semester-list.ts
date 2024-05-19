@@ -1,9 +1,9 @@
 import { SemesterList } from '@/utils/urls'
-import type { BaseResponse, MaybeArray } from '@/types'
+import type { BaseResponse } from '@/types'
 import { fetchWithRetry } from '@/utils'
 
 interface T {
-  SemesterIdLists: MaybeArray<string>
+  SemesterIdLists: string[]
 }
 
 /**
@@ -13,19 +13,17 @@ interface T {
  */
 export default async function getSemesterIdList(): Promise<BaseResponse<T>> {
   try {
-    const res = await fetchWithRetry(SemesterList, {}, { fetchImpl: fetch })
+    const data = await fetchWithRetry(SemesterList).then((res) => {
+      if (!res.ok)
+        return Promise.reject(new Error('Failed to fetch'))
 
-    if (!res) {
-      return {
-        status: false,
-        message: 'Failed to fetch',
-      }
-    }
+      return res.json()
+    })
 
     return {
       status: true,
       message: 'Get semester ID list successfully',
-      data: await res.json(),
+      data,
     }
   }
   catch (e) {

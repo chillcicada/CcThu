@@ -24,18 +24,6 @@ export function addCSRFTokenToUrl(url: string | URL, token: string): string {
 }
 
 /**
- * Get the CSRF token from a URL
- * @param url - The URL to get the CSRF token from
- *
- * @returns The CSRF token as string
- */
-export function getCSRFTokenFromUrl(url: string | URL) {
-  if (typeof url === 'string')
-    url = new URL(url)
-  return url.searchParams.get('_csrf') || ''
-}
-
-/**
  * Decode HTML string and Remove the overflow character of the conversion
  * @param html - The HTML string to decode
  *
@@ -89,6 +77,7 @@ export interface FetchWithTimeoutConfig {
  * @param options - The fetch options, default to {}
  * @param config - The fetch configuration, type {@link FetchWithTimeoutConfig}
  * @param config.useCookie - Whether to use cookie, default to true
+ * @param config.useCSRFToken - Whether to use CSRF token, default to true
  * @param config.timeout - The timeout of the fetch, default to {@link DEFAULT_TIMEOUT}
  * @param config.fetchImpl - The fetch implementation, default to {@link fetch}
  *

@@ -1,16 +1,16 @@
-import type { BaseResponse, Calendar, MaybeArray, MaybePromise } from '@/types'
+import type { BaseResponse, Calendar, UseConfig } from '@/types'
 
 interface T {
-  Calendar: MaybeArray<Calendar>
+  Calendar: Calendar[]
 }
 
-interface getCalendarConfig {
+export interface CalendarConfig {
   startDate: string | Date
   endDate: string | Date
   graduate: boolean
 }
 
-export default async function getCalendar(cfg: MaybePromise<Partial<getCalendarConfig>> = {}): Promise<BaseResponse<T>> {
+export default async function getCalendar(cfg: UseConfig<CalendarConfig> = {}): Promise<BaseResponse<T>> {
   try {
     if (cfg instanceof Promise)
       cfg = await cfg

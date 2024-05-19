@@ -1,4 +1,4 @@
-import type { BaseResponse, MaybePromise } from '@/types'
+import type { BaseResponse, UseConfig } from '@/types'
 import { fetchWithRetry, setCookie } from '@/utils'
 import { LearnAuth, Login } from '@/utils/urls'
 
@@ -27,7 +27,7 @@ export interface LoginConfig {
  *
  * @returns The response object as {@link BaseResponse}
  */
-export default async function login(cfg: MaybePromise<Partial<LoginConfig>> = {}): Promise<BaseResponse> {
+export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<BaseResponse> {
   try {
     /**
      * If the configuration is a promise, then wait for it to resolve
@@ -71,7 +71,7 @@ export default async function login(cfg: MaybePromise<Partial<LoginConfig>> = {}
         return Promise.reject(new Error('Bad credentials'))
 
       return ticket
-    }).catch(Promise.reject)
+    })
 
     /**
      * Authenticate the {@link LearnAuth} with the ticket
@@ -83,7 +83,7 @@ export default async function login(cfg: MaybePromise<Partial<LoginConfig>> = {}
         return Promise.reject(new Error('Failed to authenticate'))
 
       return res
-    }).catch(Promise.reject)
+    })
 
     const targetUrl = auth.url
 
@@ -95,7 +95,7 @@ export default async function login(cfg: MaybePromise<Partial<LoginConfig>> = {}
 
       // ? maybe here can directly parse the token (maybe optimal)
       return res.headers.get('set-cookie')?.match(/XSRF-TOKEN=([^;]+)/)?.[1] || ''
-    }).catch(Promise.reject)
+    })
 
     const cookie = `JSESSIONID=${jsessionid}; XSRF-TOKEN=${token}`
 

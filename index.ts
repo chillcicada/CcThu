@@ -1,12 +1,12 @@
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 
-import { HMR } from '@'
+// import { HMR } from '@'
 import type { BaseResponse, IdentityType, Recv } from '@/types'
 import * as modules from '@/modules'
 
-if (Bun.env.NODE_ENV === 'development')
-  HMR()
+// if (Bun.env.NODE_ENV === 'development')
+//   HMR()
 
 export const app = new Elysia()
   .use(swagger())
@@ -22,7 +22,7 @@ export const app = new Elysia()
   .all('/logout', () => modules.logout())
   .all('/user/info', (
     { query: { identityType } }: Recv<{ identityType: IdentityType }>,
-  ) => modules.getUserInfo(identityType || 'student'))
+  ) => modules.getUserInfo({ identityType }))
   // .use(modulesPluginGen())
   .all('/semester/list', async () => await modules.getSemesterIdList())
   .onError((e): BaseResponse => {

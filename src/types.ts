@@ -1,7 +1,7 @@
-// #region type utils
-export type MaybeArray<T> = T | T[]
+import type { MaybePromise } from 'elysia/types'
 
-export type MaybePromise<T> = T | Promise<T>
+// #region type utils
+export type UseConfig<T extends object = any> = MaybePromise<Partial<T>>
 // #endregion
 
 // #region urls

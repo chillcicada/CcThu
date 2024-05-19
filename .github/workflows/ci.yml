@@ -20,13 +20,16 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      API_USERNAME: ${{ secrets.API_USERNAME }}
+      API_PASSWORD: ${{ secrets.API_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - run: bun test:up
+      - run: bun test
 
   cSpell:
     runs-on: ubuntu-latest

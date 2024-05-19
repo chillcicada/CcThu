@@ -10,7 +10,7 @@ import { rmCookie } from '@/utils'
  */
 export default async function logout(): Promise<BaseResponse> {
   try {
-    const res = await fetchWithRetry(Logout, { method: 'POST' }).catch(Promise.reject)
+    const res = await fetchWithRetry(Logout, { method: 'POST' })
 
     if (res.ok)
       await rmCookie()

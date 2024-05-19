@@ -4,7 +4,7 @@ import { CurrentSemester } from '@/utils/urls'
 
 export default async function getCurrentSemester(): Promise<BaseResponse> {
   try {
-    const res = await fetchWithRetry(CurrentSemester).then(res => res.json()).catch(Promise.reject)
+    const res = await fetchWithRetry(CurrentSemester).then(res => res.json())
 
     if (!res || res.message !== 'success') {
       return {

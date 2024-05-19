@@ -1,6 +1,6 @@
-import { $, fetchWithRetry } from '@/utils/common'
+import type { BaseResponse, IdentityType, UseConfig } from '@/types'
+import { $, fetchWithRetry } from '@/utils'
 import { HomePage } from '@/utils/urls'
-import type { BaseResponse, IdentityType } from '@/types'
 
 interface T {
   name: string
@@ -8,19 +8,31 @@ interface T {
 }
 
 /**
+ * Configuration for getting user's name and department
+ */
+export interface UserInfoConfig {
+  identityType: IdentityType
+}
+
+/**
  * get user's name and department
- * @param identityType - {@link IdentityType}
+ * @param cfg - The configuration {@link UserInfoConfig}
  *
  * @returns user's name and department as {@link T} wrapped in {@link BaseResponse}
  */
-export default async function getUserInfo(identityType?: IdentityType): Promise<BaseResponse<Partial<T>>> {
+export default async function getUserInfo(cfg: UseConfig<UserInfoConfig> = {}): Promise<BaseResponse<T>> {
   try {
+    if (cfg instanceof Promise)
+      cfg = await cfg
+
+    const { identityType } = cfg
+
     const res = await fetchWithRetry(HomePage(identityType)).then((res) => {
       if (!res.ok)
         return Promise.reject(new Error('Failed to fetch'))
 
       return res.text()
-    }).catch(Promise.reject)
+    })
 
     const dom = $(res)
 

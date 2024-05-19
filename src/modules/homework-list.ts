@@ -1,1 +1,1 @@
-// export default async function getHomeworkList(courseID: MaybeArray<string>)
+// export default async function getHomeworkList(courseID: MaybeArray<string>){}
