@@ -1,17 +1,7 @@
 /* eslint-disable no-console */
-import fs from 'node:fs'
 import { join } from 'node:path'
-// import type { RouteSchema } from 'elysia'
 import { Elysia } from 'elysia'
 import { paramToModule } from './utils'
-
-/**
- * Hot Module Reload Configuration
- */
-interface HMRConfig {
-  once: boolean
-  modulesPath: string
-}
 
 interface ModulesPluginConfig {
   apiVersion: `v${number}`
@@ -117,23 +107,4 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
         }
       }
     })
-}
-
-/**
- * Hot Module Reload
- * @param cfg see this configuration at {@link HMRConfig}
- */
-export function HMR(cfg: Partial<HMRConfig> = {}): void {
-  const {
-    once = false,
-    modulesPath = join(__dirname, 'modules'),
-  } = cfg
-
-  const watcher = fs.watch(modulesPath, { recursive: true }, (eventType, filename) => {
-    console.log('Event type:', eventType)
-    console.log('File changed:', filename)
-  })
-
-  if (once)
-    watcher.close()
 }

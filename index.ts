@@ -38,5 +38,7 @@ export const app = new Elysia()
   })
   .listen(Bun.env.PORT || 3000)
 
+export default app
+
 // eslint-disable-next-line no-console
 console.log(`🚀 The Server is running at:\x1B[32m http://${app.server?.hostname}:${app.server?.port} \x1B[0m💕`)

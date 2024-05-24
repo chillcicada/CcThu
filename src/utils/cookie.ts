@@ -1,7 +1,7 @@
 // TODO: optimize the code
+import { join } from 'node:path'
 import { readFile, unlink, writeFile } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
 
 // ? or use the `.temp` path at workspace root
 const TmpPath = tmpdir()

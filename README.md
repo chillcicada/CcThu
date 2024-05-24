@@ -13,6 +13,26 @@
 
 CcThu is an API server based on [Bun](https://bun.sh) and [Elysia](https://elysiajs.com) that helps users build their own [THU](https://www.tsinghua.edu.cn) API server quickly.
 
+## Features
+
+We have currently implemented event-driven module lazy loading, and combined with the performance of Bun and Elysia, we are able to maintain resource usage under 100 MB in scenarios with hundreds of thousands of requests per second (local tests show around 75 MB, which is more than sufficient in fact). This makes it highly suitable for deployment on personal edge computing devices. In principle, it can handle the normal requests of all the teachers, students, and staff in a school, but we still recommend private deployment and do not advocate for or provide public interfaces.
+
+<details>
+
+<summary>Unsupported Websites / Interfaces</summary>
+
+> [!WARNING]
+> We won't provide any support for interfaces that are prone to be easily abused.
+
+e.g.:
+
+- lib.tsinghua.edu.cn / 图书馆阅读相关接口
+- ...
+
+If you privately implement relevant interfaces and cause abuse and are punished, you are responsible for the consequences and we have nothing to do with the responsibility. The right of interpretation belongs to us.
+
+</details>
+
 ## Usage
 
 > [!WARNING]
@@ -41,7 +61,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 <div align="center">
 
-![CcThu](https://repobeats.axiom.co/api/embed/10650ba8b44fbdf755088495a555c22ea86ea9ef.svg)
+![CcThu](https://repobeats.axiom.co/api/embed/7b84f1d5737a1499abd6010db0735512d3ab6c7c.svg)
 
 </div>
 
@@ -57,13 +77,19 @@ If you want to see, at [here](https://chillcicada.com/articles/endpapers_1#about
 
 <details>
 
+<summary>Some questions you may have.</summary>
+
 - Q: How does this API server work?
 
-  A: Use cookies and to simulate login, and then use the request to get the data, and finally parse the data on server and return it to the user.
+  A: Use cookies and to simulate login, and then use the request to get the data, and finally parse the data on server and return it to the user. We manually maintain the cookie mechanisms.
 
 - Q: What is the frequency of updates/commits?
 
   A: Every Friday evening (UTC+8). Exculding some special cases.
+
+- Q: What's the development plan?
+
+  A: I'm currently working for the releasing of version 0.1.0. Learn more at [here](https://github.com/chillcicada/CcThu/issues/1). For I'm very busy 😎, I may only focus on key parts of the development before v0.1.0. It's due to released in the August and September of this year.
 
 <!-- - Q: 这是否会造成恶性竞争的情况？
 

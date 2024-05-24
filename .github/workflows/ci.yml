@@ -16,7 +16,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile --ignore-scripts
-      - run: bun lint:types
+      - run: bun lint:type
 
   lint_and_format:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile --ignore-scripts
-      - run: bun run test
+      - run: bun test:unit
 
   cSpell:
     runs-on: ubuntu-latest
