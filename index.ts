@@ -1,30 +1,35 @@
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
+// import { cron } from '@elysiajs/cron'
 
-// import { HMR } from '@'
-import type { BaseResponse, IdentityType, Recv } from '@/types'
-import * as modules from '@/modules'
-
-// if (Bun.env.NODE_ENV === 'development')
-//   HMR()
+import { modulesPluginGen } from '@'
+import type { BaseResponse } from '@/types'
 
 export const app = new Elysia()
+  // .use(cron({
+  //   name: 'zzz',
+  //   pattern: '*/5 * * * * *',
+  //   run: () => {
+  //     console.log('zzz')
+  //   },
+  // }))
   .use(swagger())
-  .all('/', () => 'Hello, World. This project is 🚧 working in process 🚧, please wait for the release.')
-  .all('/test', (): BaseResponse<string> => {
+  .use(modulesPluginGen())
+  .all('/', () => 'Hello, CcThu. This project is 🚧 working in process 🚧, please wait for the release.')
+  .get('/test', (): BaseResponse<string> => {
     return {
       message: 'Test Successfully',
       data: new Date().toISOString(),
       status: true,
     }
   })
-  .all('/login', async ({ query: { username, password } }) => modules.login({ username, password }))
-  .all('/logout', () => modules.logout())
-  .all('/user/info', (
-    { query: { identityType } }: Recv<{ identityType: IdentityType }>,
-  ) => modules.getUserInfo({ identityType }))
-  // .use(modulesPluginGen())
-  .all('/semester/list', async () => await modules.getSemesterIdList())
+  .post('/test', (): BaseResponse<string> => {
+    return {
+      message: 'Test Successfully',
+      data: new Date().toISOString(),
+      status: true,
+    }
+  })
   .onError((e): BaseResponse => {
     return {
       status: false,

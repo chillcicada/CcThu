@@ -8,6 +8,16 @@ on:
       - main
 
 jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun lint:types
+
   lint_and_format:
     runs-on: ubuntu-latest
     steps:
@@ -15,21 +25,18 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile
+      - run: bun install --frozen-lockfile --ignore-scripts
       - run: bun lint:fix
 
   test:
     runs-on: ubuntu-latest
-    env:
-      API_USERNAME: ${{ secrets.API_USERNAME }}
-      API_PASSWORD: ${{ secrets.API_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile
-      - run: bun test
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run test
 
   cSpell:
     runs-on: ubuntu-latest

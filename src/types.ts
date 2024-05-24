@@ -1,6 +1,10 @@
 import type { MaybePromise } from 'elysia/types'
 
 // #region type utils
+export type FirstKey<T> = T extends Record<infer K, any> ? K : never
+
+// export type FirstValue<T> = T[FirstKey<T>]
+
 export type UseConfig<T extends object = any> = MaybePromise<Partial<T>>
 // #endregion
 

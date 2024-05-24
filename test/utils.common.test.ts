@@ -1,5 +1,3 @@
-import { describe, expect, it } from 'bun:test'
-
 import * as c from '@/utils/common'
 
 describe('utils/common', () => {
@@ -27,5 +25,11 @@ describe('utils/common', () => {
     expect(c.parseSemesterType(2)).toBe('spring')
     expect(c.parseSemesterType(3)).toBe('summer')
     expect(c.parseSemesterType(4)).toBe('unknown')
+  })
+
+  it('should convert param string to module string', () => {
+    expect(c.paramToModule('foo')).toBe('foo')
+    expect(c.paramToModule('foo/bar')).toBe('foo-bar')
+    expect(c.paramToModule('foo/bar/baz')).toBe('foo-bar-baz')
   })
 })

@@ -35,7 +35,9 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
     if (cfg instanceof Promise)
       cfg = await cfg
 
-    if (!cfg.username || !cfg.password) {
+    const { username, password } = cfg
+
+    if (!username || !password) {
       return {
         status: false,
         message: 'Username or password is empty',
@@ -47,8 +49,8 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
      */
     const form = new FormData()
 
-    form.append(LoginFormBody.username, cfg.username)
-    form.append(LoginFormBody.password, cfg.password)
+    form.append(LoginFormBody.username, username)
+    form.append(LoginFormBody.password, password)
     form.append(LoginFormBody.atOnce, 'true')
 
     /**
@@ -76,26 +78,36 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
     /**
      * Authenticate the {@link LearnAuth} with the ticket
      *
-     * @returns The response object as {@link T}
+     * @returns The authentication URL as string
      */
-    const auth = await fetchWithRetry(LearnAuth(ticket), {}, { useCookie: false }).then((res) => {
+    const authUrl = await fetchWithRetry(LearnAuth(ticket), {}, { useCookie: false }).then((res) => {
       if (!res.ok)
         return Promise.reject(new Error('Failed to authenticate'))
 
-      return res
+      return res.url
     })
 
-    const targetUrl = auth.url
+    const jsessionid = authUrl.match(/jsessionid=([^"]+)/)?.[1]
 
-    const jsessionid = targetUrl.match(/jsessionid=([^"]+)/)?.[1]
-
-    const token = await fetchWithRetry(targetUrl, {}, { useCookie: false }).then((res) => {
+    /**
+     * Fetch the {@link authUrl} and get the token
+     *
+     * @returns The token as string
+     */
+    const token = await fetchWithRetry(authUrl, {}, { useCookie: false }).then((res) => {
       if (!res.ok)
         return Promise.reject(new Error('Failed to get course list page'))
 
       // ? maybe here can directly parse the token (maybe optimal)
-      return res.headers.get('set-cookie')?.match(/XSRF-TOKEN=([^;]+)/)?.[1] || ''
+      return res.headers.get('set-cookie')?.match(/XSRF-TOKEN=([^;]+)/)?.[1]
     })
+
+    if (!jsessionid || !token) {
+      return {
+        status: false,
+        message: 'Failed to get session id or token',
+      }
+    }
 
     const cookie = `JSESSIONID=${jsessionid}; XSRF-TOKEN=${token}`
 

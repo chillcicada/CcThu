@@ -34,6 +34,11 @@ export const decodeHTML = (html: string) => _decodeHTML(html).replace(/^(\\xC2\\
 export const noLogin = (res: Response) => res.url.includes('login_timeout') || res.status === 403
 
 /**
+ * Turn a param string to a module name
+ */
+export const paramToModule = (params: string) => params.replace(/\//g, '-')
+
+/**
  * Parse SemesterType from a number
  * @param n - The number to parse
  *
@@ -169,8 +174,7 @@ export async function fetchWithRetry(
 
     const fetcher = async () => {
       try {
-        const res = await fetchWithTimeout(url, options, rest)
-        resolve(res)
+        resolve(await fetchWithTimeout(url, options, rest))
       }
       catch (e) {
         if (retry < maxRetry) {
@@ -187,3 +191,8 @@ export async function fetchWithRetry(
   })
 }
 // #endregion
+
+// TODO
+export function SetResponse<T>(res: Response): Promise<T> {
+  return res.json()
+}

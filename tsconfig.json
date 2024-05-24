@@ -11,7 +11,7 @@
       "@@": ["."],
       "@@/*": ["./*"]
     },
-    "types": ["@types/bun"],
+    "types": ["@types/bun", "vitest/globals"],
     "allowImportingTsExtensions": true,
     "allowJs": true,
     "strict": true,
