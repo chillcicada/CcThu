@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { join } from 'node:path'
 import { Elysia } from 'elysia'
 import { paramToModule } from './utils'
@@ -6,7 +5,7 @@ import { paramToModule } from './utils'
 interface ModulesPluginConfig {
   apiVersion: `v${number}`
   modulesDir: string
-  excludeFiles: string[]
+  excludeModules: string[]
   // specialFiles: Record<string, string>
 }
 
@@ -22,7 +21,7 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
   const {
     apiVersion = 'v1',
     modulesDir = 'modules',
-    excludeFiles = [],
+    excludeModules: excludeFiles = [],
     // specialFiles = {},
   } = cfg
 
@@ -36,8 +35,6 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
         ..._rest // TODO
       } = req
 
-      console.log(req)
-
       const moduleNames = `${paramToModule(params['*'])}.ts`
 
       const modulePath = join(modulesPath, moduleNames)
@@ -50,8 +47,6 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
 
       // TODO
       const args = query
-
-      console.log(args)
 
       try {
         const func: Function = await import(modulePath).then(m => m.default)
@@ -75,8 +70,6 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
         ..._rest // TODO
       } = req
 
-      console.log(req)
-
       const moduleNames = `${paramToModule(params['*'])}.ts`
 
       const modulePath = join(modulesPath, moduleNames)
@@ -89,8 +82,6 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
 
       // TODO
       const args = body
-
-      console.log(args)
 
       try {
         const func: Function = await import(modulePath).then(m => m.default)

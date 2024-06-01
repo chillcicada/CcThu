@@ -10,15 +10,24 @@
   },
   "license": "GPL-3.0-only",
   "homepage": "https://github.com/chillcicada/ccthu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chillcicada/ccthu"
+  },
+  "bugs": {
+    "url": "https://github.com/chillcicada/ccthu/issues"
+  },
   "keywords": [
     "API server",
-    "THU"
+    "THU",
+    "Bun",
+    "Elysia"
   ],
   "module": "index.ts",
   "scripts": {
     "dev": "NODE_ENV=development bun --watch index.ts",
     "dev:test": "NODE_ENV=test bun test --update-snapshots --watch ./test/index.test.ts",
-    "build": "NODE_ENV=production bun build index.ts",
+    "build": "bunx rimraf dist && NODE_ENV=production bun build.ts",
     "start": "NODE_ENV=production bun index.ts",
     "test:ui": "bunx vitest --ui --coverage.enabled=true",
     "test:unit": "bunx vitest --run",
@@ -50,7 +59,9 @@
     "eslint": "8.57.0",
     "eslint-plugin-format": "^0.1.1",
     "lint-staged": "^15.2.2",
+    "rimraf": "^5.0.7",
     "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.0.2",
     "vitest": "^1.6.0"
   },
   "simple-git-hooks": {
