@@ -1,0 +1,5 @@
+export * as LearnUrls from './learn'
+export * as LibRoomUrls from './lib-room'
+export * as TojUrls from './toj'
+export * as GitlabUrls from './gitlab'
+export * as CardUrls from './card'

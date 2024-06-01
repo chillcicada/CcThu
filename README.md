@@ -73,7 +73,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 If you want to see, at [here](https://chillcicada.com/articles/endpapers_1#about-ccthu). -->
 
-## Q&A
+## FAQ
 
 <details>
 

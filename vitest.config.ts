@@ -7,8 +7,10 @@ const exclude: string[] = [
   '**\/.{idea,git,cache,output,temp}/**',
   '**\/*.config.*',
   // index.test.ts can only be tested under the bun environment
-  'test\/index.test.ts',
-  'src\/modules\/**',
+  // run `bun run test` to test when developing
+  'test/index.test.ts',
+  'src/modules/**',
+  'src/urls/**',
 ]
 
 export default defineConfig({

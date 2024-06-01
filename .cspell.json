@@ -5,6 +5,7 @@
     "**/.*",
     "**/node_modules",
     // ! custom
+    "src/urls",
     "**/*urls.ts",
     "test/utils.common.test.ts"
   ],

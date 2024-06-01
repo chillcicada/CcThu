@@ -1,8 +1,3 @@
-// #region url
-export * as urls from './urls'
-export * as urls2 from './webvpn-urls'
-// #endregion
-
 export {
   $,
   addCSRFTokenToUrl,

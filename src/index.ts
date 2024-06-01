@@ -115,7 +115,7 @@ export const app = new Elysia()
   // }))
   .use(swagger())
   .use(modulesPluginGen())
-  .all('/', () => 'Hello, CcThu. This project is 🚧 working in process 🚧, please wait for the release.')
+  .all('/', () => 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.')
   .get('/test', (): BaseResponse<string> => {
     return {
       message: 'Test Successfully',

@@ -1,7 +1,6 @@
-import { Logout } from '@/utils/urls'
+import { Logout } from '@/urls/learn'
 import type { BaseResponse } from '@/types'
-import { fetchWithRetry } from '@/utils/common'
-import { rmCookie } from '@/utils'
+import { fetchWithRetry, rmCookie } from '@/utils'
 
 /**
  * Logout from the web learn
