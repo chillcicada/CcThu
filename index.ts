@@ -1,5 +1,5 @@
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+// import { swagger } from '@elysiajs/swagger'
 // import { cron } from '@elysiajs/cron'
 
 import { modulesPluginGen } from '@'
@@ -13,17 +13,10 @@ export const app = new Elysia()
   //     console.log('zzz')
   //   },
   // }))
-  .use(swagger())
+  // .use(swagger())
   .use(modulesPluginGen())
-  .all('/', () => 'Hello, CcThu. This project is 🚧 working in process 🚧, please wait for the release.')
-  .get('/test', (): BaseResponse<string> => {
-    return {
-      message: 'Test Successfully',
-      data: new Date().toISOString(),
-      status: true,
-    }
-  })
-  .post('/test', (): BaseResponse<string> => {
+  .all('/', () => 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.')
+  .all('/test', (): BaseResponse<string> => {
     return {
       message: 'Test Successfully',
       data: new Date().toISOString(),

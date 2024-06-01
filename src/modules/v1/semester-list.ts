@@ -1,4 +1,4 @@
-import { SemesterList } from '@/utils/urls'
+import { SemesterList } from '@/urls/learn'
 import type { BaseResponse } from '@/types'
 import { fetchWithRetry } from '@/utils'
 

@@ -15,11 +15,14 @@
     "THU"
   ],
   "module": "index.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "NODE_ENV=development bun --watch index.ts",
-    "dev:test": "NODE_ENV=test bun test --update-snapshots --watch ./test/index.test.ts",
-    "build": "NODE_ENV=production bun build index.ts",
+    "build": "NODE_ENV=production bun build . --target bun --outdir ./dist",
     "start": "NODE_ENV=production bun index.ts",
+    "test": "NODE_ENV=test bun test --update-snapshots --watch ./test/index.test.ts",
     "test:ui": "bunx vitest --ui --coverage.enabled=true",
     "test:unit": "bunx vitest --run",
     "test:cov": "bunx vitest run --coverage",

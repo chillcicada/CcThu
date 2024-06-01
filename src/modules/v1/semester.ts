@@ -1,6 +1,6 @@
 import type { BaseResponse } from '@/types'
 import { fetchWithRetry } from '@/utils'
-import { CurrentSemester } from '@/utils/urls'
+import { CurrentSemester } from '@/urls/learn'
 
 export default async function getCurrentSemester(): Promise<BaseResponse> {
   try {

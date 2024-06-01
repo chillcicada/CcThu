@@ -1,5 +1,7 @@
 # CONTRIBUTING
 
+Make sure you have no relevant relationship with [ITS](https://its.tsinghua.edu.cn/index.jsp), and you have read the [README.md](./README.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) before you start contributing.
+
 > [!IMPORTANT]
 > CcThu is an API server based on [Bun](https://bun.sh), with [Elysia](https://elysiajs.com) as the backfront framework and [Typescipt](https://www.typescriptlang.org) as programming language.
 

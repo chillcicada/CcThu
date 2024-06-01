@@ -1,3 +1,6 @@
+/**
+ * This function is only for testing purposes
+ */
 export default async function test() {
   return {
     message: 'Test Successfully',

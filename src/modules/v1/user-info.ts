@@ -1,6 +1,6 @@
 import type { BaseResponse, IdentityType, UseConfig } from '@/types'
 import { $, fetchWithRetry } from '@/utils'
-import { HomePage } from '@/utils/urls'
+import { HomePage } from '@/urls/learn'
 
 interface T {
   name: string

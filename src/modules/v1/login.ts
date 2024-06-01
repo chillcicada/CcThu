@@ -1,6 +1,6 @@
 import type { BaseResponse, UseConfig } from '@/types'
 import { fetchWithRetry, setCookie } from '@/utils'
-import { LearnAuth, Login } from '@/utils/urls'
+import { LearnAuth, Login } from '@/urls/learn'
 
 /**
  * Login form parameters for query
