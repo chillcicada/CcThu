@@ -3,7 +3,7 @@
   "displayName": "ccThu",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "bun@1.1.9",
+  "packageManager": "bun@1.1.16",
   "author": {
     "name": "chillcicada",
     "email": "2210227279@qq.com"
@@ -23,12 +23,12 @@
     "Bun",
     "Elysia"
   ],
-  "module": "index.ts",
+  "module": "src/index.ts",
   "scripts": {
-    "dev": "NODE_ENV=development bun --watch index.ts",
+    "dev": "NODE_ENV=development bun --watch src/index.ts",
     "dev:test": "NODE_ENV=test bun test --update-snapshots --watch ./test/index.test.ts",
     "build": "bunx rimraf dist && NODE_ENV=production bun build.ts",
-    "start": "NODE_ENV=production bun index.ts",
+    "start": "NODE_ENV=production bun src/index.ts",
     "test:ui": "bunx vitest --ui --coverage.enabled=true",
     "test:unit": "bunx vitest --run",
     "test:cov": "bunx vitest run --coverage",
@@ -39,29 +39,29 @@
     "postinstall": "bunx simple-git-hooks"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@elysiajs/cron": "^1.0.3",
     "@elysiajs/swagger": "^1.0.5",
     "cheerio": "^1.0.0-rc.12",
-    "elysia": "^1.0.15",
+    "elysia": "^1.0.25",
     "entities": "^4.5.0",
     "vanjs-core": "^1.5.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.16.0",
-    "@elysiajs/eden": "^1.0.12",
+    "@antfu/eslint-config": "^2.21.1",
+    "@elysiajs/eden": "^1.0.14",
     "@types/bun": "latest",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "domhandler": "^5.0.3",
     "eslint": "8.57.0",
-    "eslint-plugin-format": "^0.1.1",
-    "lint-staged": "^15.2.2",
+    "eslint-plugin-format": "^0.1.2",
+    "lint-staged": "^15.2.7",
     "rimraf": "^5.0.7",
     "simple-git-hooks": "^2.11.1",
-    "tsup": "^8.0.2",
+    "tsup": "^8.1.0",
     "vitest": "^1.6.0"
   },
   "simple-git-hooks": {

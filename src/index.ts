@@ -1,6 +1,10 @@
 import { join } from 'node:path'
 import { Elysia } from 'elysia'
+import { swagger } from '@elysiajs/swagger'
+// import { cron } from '@elysiajs/cron'
+
 import { paramToModule } from './utils'
+import type { BaseResponse } from '@/types'
 
 interface ModulesPluginConfig {
   apiVersion: `v${number}`
@@ -14,7 +18,7 @@ interface ModulesPluginConfig {
  * @param cfg see this configuration at {@link ModulesPluginConfig}
  * reduce the configuration to {@link ModulesPluginConfig.apiVersion}
  */
-export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfig['apiVersion'] = {}): Elysia {
+function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfig['apiVersion'] = {}): Elysia {
   if (typeof cfg === 'string')
     cfg = { apiVersion: cfg }
 
@@ -35,13 +39,14 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
         ..._rest // TODO
       } = req
 
-      const moduleNames = `${paramToModule(params['*'])}.ts`
+      const moduleNames = `${paramToModule(params['*'])}`
 
       const modulePath = join(modulesPath, moduleNames)
 
       if (excludeFiles.includes(moduleNames)) {
         return {
           status: 404,
+          message: 'Module not found',
         }
       }
 
@@ -99,3 +104,39 @@ export function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPlug
       }
     })
 }
+
+export const app = new Elysia()
+  // .use(cron({
+  //   name: 'zzz',
+  //   pattern: '*/5 * * * * *',
+  //   run: () => {
+  //     console.log('zzz')
+  //   },
+  // }))
+  .use(swagger())
+  .use(modulesPluginGen())
+  .all('/', () => 'Hello, CcThu. This project is 🚧 working in process 🚧, please wait for the release.')
+  .get('/test', (): BaseResponse<string> => {
+    return {
+      message: 'Test Successfully',
+      data: new Date().toISOString(),
+      status: true,
+    }
+  })
+  .post('/test', (): BaseResponse<string> => {
+    return {
+      message: 'Test Successfully',
+      data: new Date().toISOString(),
+      status: true,
+    }
+  })
+  .onError((e): BaseResponse => {
+    return {
+      status: false,
+      // message: typeof e === 'string' ? e : e instanceof Error ? e.message : 'Unknown Error',
+      message: `${e.body}`,
+    }
+  })
+  .listen(Bun.env.PORT || 3000)
+
+export default app

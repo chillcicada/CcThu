@@ -25,6 +25,7 @@
     "PHPSESSID",
     "Repobeats",
     "serverid",
+    "treeshake",
     "tsup",
     "unsubmitted",
     "vanjs",

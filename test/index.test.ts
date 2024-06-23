@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { treaty } from '@elysiajs/eden'
 import type { HTTPMethod } from 'elysia/types'
 
-import { app } from '@@'
+import { app } from '@'
 
 const client = treaty(app)
 
