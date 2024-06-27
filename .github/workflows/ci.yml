@@ -15,7 +15,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun install --ignore-scripts
       - run: bun lint:type
 
   lint_and_format:
@@ -25,7 +25,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun install --ignore-scripts
       - run: bun lint:fix
 
   test:
@@ -35,7 +35,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun install --ignore-scripts
       - run: bun test:unit
 
   cSpell:
