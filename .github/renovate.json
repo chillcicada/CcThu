@@ -3,5 +3,6 @@
   "extends": ["config:base"],
   "schedule": [
     "every weekend"
-  ]
+  ],
+  "automerge": true
 }
