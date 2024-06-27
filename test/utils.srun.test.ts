@@ -8,7 +8,7 @@ describe('utils/srun', () => {
   })
 
   it('should encode', () => {
-    expect(new r.XBase64().encode(r.xEncode('str', 'key'))).toBe('sLYfdgWlbBL=')
+    expect(r.xEncodeBase64(r.xEncode('str', 'key'))).toBe('sLYfdgWlbBL=')
   })
 
   // sadly that we can't test decode
