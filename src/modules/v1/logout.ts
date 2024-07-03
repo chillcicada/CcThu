@@ -20,6 +20,9 @@ export default async function logout(): Promise<BaseResponse> {
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
       message: `Logout failed, ${typeof e === 'string' ? e : 'unknown error'}`,

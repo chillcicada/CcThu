@@ -20,6 +20,9 @@ export default async function getCurrentSemester(): Promise<BaseResponse> {
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
       message: `Failed to get current semester, ${typeof e === 'string' ? e : 'unknown error'}`,

@@ -1,18 +1,24 @@
+/**
+ * preprocess the string for xxtea encrypt
+ * @param str - The string to preprocess
+ * @param useLen - Whether to use the length
+ * @returns The preprocessed string as number array
+ */
 function preprocess(str: string, useLen = false): number[] {
   const v: number[] = []
   const len = str.length
 
-  for (let i = 0; i < len; i += 4) {
-    v.push(
-      str.charCodeAt(i) | (str.charCodeAt(i + 1) << 8) | (str.charCodeAt(i + 2) << 16) | (str.charCodeAt(i + 3) << 24),
-    )
-  }
+  for (let i = 0; i < len; i += 4)
+    v.push(str.charCodeAt(i) | (str.charCodeAt(i + 1) << 8) | (str.charCodeAt(i + 2) << 16) | (str.charCodeAt(i + 3) << 24))
 
   return useLen ? [...v, len] : v
 }
 
 /**
  * xxtea encrypt for srun network
+ * @param str - The string to encrypt
+ * @param key - The key to encrypt
+ * @returns The encrypted string
  */
 export function xEncode(str: string, key: string): string {
   if (str === '')
@@ -58,8 +64,9 @@ export function xEncode(str: string, key: string): string {
 
 /**
  * A minimal modified base64 encoder/decoder
+ * @param str - The string to encode
+ * @returns The encoded string
  */
-
 export function xEncodeBase64(str: string) {
   const _base64Alphabet = 'LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA'
   const base64Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'

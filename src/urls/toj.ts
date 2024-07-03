@@ -1,4 +1,4 @@
-import { TOJ_PREFIX } from '@/constants'
+import { TOJ_PREFIX } from './common'
 
 export const TojLogin = `${TOJ_PREFIX}/user.php`
 

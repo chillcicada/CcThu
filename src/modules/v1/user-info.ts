@@ -53,6 +53,9 @@ export default async function getUserInfo(cfg: UseConfig<UserInfoConfig> = {}): 
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
       message: typeof e === 'string' ? e : 'Unknown error',

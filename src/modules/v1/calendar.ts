@@ -23,6 +23,9 @@ export default async function getCalendar(cfg: UseConfig<CalendarConfig> = {}): 
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       message: 'error',
       status: false,

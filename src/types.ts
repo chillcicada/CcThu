@@ -1,4 +1,5 @@
 import type { MaybePromise } from 'elysia/types'
+import type { HomeworkGradeLevel } from '@/constants'
 
 // #region type utils
 export type FirstKey<T> = T extends Record<infer K, any> ? K : never
@@ -9,6 +10,10 @@ export type UseConfig<T extends object = any> = MaybePromise<Partial<T>>
 // #endregion
 
 // #region urls
+export type UrlLike = string | URL
+
+export type ReqLike = Request | UrlLike
+
 export type Language = 'zh' | 'en'
 // TODO: Add transition rules
 export type WebsiteShowLanguage = 'zh_CN' | 'en_US'
@@ -145,36 +150,6 @@ export interface HomeworkStatus {
   submitted: boolean
   graded: boolean
 }
-
-export const HomeworkGradeLevel = {
-  CHECKED: 'checked',
-  DISTINCTION: 'distinction',
-  EXEMPTED_COURSE: 'exempted course',
-  EX: 'EX',
-  EXEMPTION: 'exemption',
-
-  A_PLUS: 'A+',
-  A: 'A',
-  A_MINUS: 'A-',
-  B_PLUS: 'B+',
-  B: 'B',
-  B_MINUS: 'B-',
-  C_PLUS: 'C+',
-  C: 'C',
-  C_MINUS: 'C-',
-  G: 'G',
-  D_PLUS: 'D+',
-  D: 'D',
-  P: 'P',
-  F: 'F',
-
-  PASS: 'pass',
-  FAILURE: 'failure',
-  W: 'W',
-  I: 'I',
-  INCOMPLETE: 'incomplete',
-  NA: 'NA',
-} as const
 
 export interface HomeworkBase extends HomeworkStatus {
   id: string | number

@@ -27,6 +27,9 @@ export default async function getSemesterIdList(): Promise<BaseResponse<T>> {
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
       message: typeof e === 'string' ? e : 'Unknown error',

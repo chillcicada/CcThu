@@ -61,7 +61,8 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
       catch (e) {
         console.warn(`Module ${moduleNames} not found`)
 
-        console.error(e)
+        if (import.meta.env.NODE_ENV === 'development')
+          console.error(e)
 
         return {
           status: 404,
@@ -96,7 +97,8 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
       catch (e) {
         console.warn(`Module ${moduleNames} not found`)
 
-        console.error(e)
+        if (import.meta.env.NODE_ENV === 'development')
+          console.error(e)
 
         return {
           status: 404,
@@ -131,10 +133,12 @@ export const app = new Elysia()
     }
   })
   .onError((e): BaseResponse => {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
-      // message: typeof e === 'string' ? e : e instanceof Error ? e.message : 'Unknown Error',
-      message: `${e.body}`,
+      message: `Unknown error, ${typeof e === 'string' ? e : 'unknown error'}`,
     }
   })
   .listen(Bun.env.PORT || 3000)

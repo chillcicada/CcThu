@@ -30,6 +30,7 @@ describe('ccThu', () => {
     expect(data).toMatchSnapshot()
   })
 
+  // TODO: remove any type
   const api = (client as any).api.v1
 
   it(tp('api test'), async () => {

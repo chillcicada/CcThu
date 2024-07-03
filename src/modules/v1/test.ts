@@ -8,3 +8,5 @@ export default async function test() {
     status: true,
   }
 }
+
+export { test }

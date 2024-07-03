@@ -1,4 +1,5 @@
-import { ID_PREFIX, LEARN_PREFIX, MAX_SIZE, REGISTRAR_PREFIX } from '@/constants'
+import { ID_PREFIX, LEARN_PREFIX, REGISTRAR_PREFIX } from './common'
+import { MAX_SIZE } from '@/constants'
 import type { IdentityType, Language, WebsiteShowLanguage } from '@/types'
 
 /**

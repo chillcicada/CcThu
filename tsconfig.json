@@ -25,5 +25,5 @@
     "plugins": []
   },
   "include": ["./**/*"],
-  "exclude": ["./.temp/*", "./dist/*"]
+  "exclude": ["./.temp/*", "./dist/*", "./coverage/*"]
 }

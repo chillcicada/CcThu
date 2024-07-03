@@ -25,10 +25,11 @@
   ],
   "module": "src/index.ts",
   "scripts": {
-    "dev": "NODE_ENV=development bun --watch src/index.ts",
+    "dev": "NODE_ENV=development bun --watch ./src",
     "dev:test": "NODE_ENV=test bun test --update-snapshots --watch ./test/index.test.ts",
-    "build": "bunx rimraf dist && NODE_ENV=production bun build.ts",
-    "start": "NODE_ENV=production bun src/index.ts",
+    "build": "tsup",
+    "start": "bun ./dist",
+    "preview": "NODE_ENV=development bun ./dist",
     "test:ui": "bunx vitest --ui --coverage.enabled=true",
     "test:unit": "bunx vitest --run",
     "test:cov": "bunx vitest run --coverage",
@@ -38,30 +39,24 @@
     "lint:type": "tsc --noEmit",
     "postinstall": "bunx simple-git-hooks"
   },
-  "peerDependencies": {
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "@elysiajs/cron": "^1.0.3",
-    "@elysiajs/swagger": "^1.0.5",
-    "cheerio": "^1.0.0-rc.12",
-    "elysia": "^1.0.25",
-    "entities": "^4.5.0",
-    "vanjs-core": "^1.5.0"
-  },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.21.1",
+    "@antfu/eslint-config": "^2.21.2",
+    "@elysiajs/cron": "^1.0.3",
     "@elysiajs/eden": "^1.0.14",
+    "@elysiajs/swagger": "^1.0.5",
     "@types/bun": "latest",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
     "domhandler": "^5.0.3",
+    "elysia": "^1.0.27",
+    "entities": "^4.5.0",
     "eslint": "8.57.0",
     "eslint-plugin-format": "^0.1.2",
     "lint-staged": "^15.2.7",
-    "rimraf": "^5.0.7",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.1.0",
+    "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   },
   "simple-git-hooks": {
@@ -70,5 +65,18 @@
   "lint-staged": {
     "*.test.ts": "vitest related --run",
     "*.{ts,json}": "eslint --fix"
+  },
+  "tsup": {
+    "entry": ["src/index.ts", "src/modules"],
+    "target": "esnext",
+    "clean": true,
+    "bundle": true,
+    "splitting": false,
+    "sourcemap": false,
+    "minify": true,
+    "treeshake": false,
+    "format": ["esm"],
+    "outDir": "dist",
+    "cjsInterop": false
   }
 }

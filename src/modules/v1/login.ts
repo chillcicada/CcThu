@@ -119,6 +119,9 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
     }
   }
   catch (e) {
+    if (import.meta.env.NODE_ENV === 'development')
+      console.error(e)
+
     return {
       status: false,
       message: `Login failed, ${typeof e === 'string' ? e : 'unknown error'}`,
