@@ -37,7 +37,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "lint:type": "tsc --noEmit",
-    "postinstall": "bunx simple-git-hooks"
+    "postinstall": "simple-git-hooks"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",
