@@ -1,6 +1,7 @@
+import { FailReason } from '@/constants'
 import type { BaseResponse, HomeworkSubmitAttachment, UseConfig } from '@/types'
 import { StuHomeworkSubmitPost } from '@/urls/learn'
-import { fetchWithRetry, useError } from '@/utils'
+import { fetchWithRetry, useError, useFail } from '@/utils'
 
 /**
  * Homework submit parameters for query
@@ -42,7 +43,7 @@ export default async function submitHomework(cfg: UseConfig<HomeworkSubmitConfig
     } = cfg
 
     if (!studentHomeworkID)
-      return useError('Invalid student homework ID')
+      return useFail('Invalid student homework ID')
 
     const form = new FormData()
 
@@ -64,12 +65,7 @@ export default async function submitHomework(cfg: UseConfig<HomeworkSubmitConfig
       message: 'Homework submitted successfully',
     }
   }
-  catch (e) {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
-
-    return useError('Failed to submit homework')
-  }
+  catch (e) { return useError(e, FailReason.SubmitHomeworkError) }
 }
 
 export { submitHomework }

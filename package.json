@@ -60,7 +60,7 @@
     "vitest": "^1.6.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "bunx lint-staged"
+    "pre-commit": "bunx lint-staged && tsc --noEmit"
   },
   "lint-staged": {
     "*.test.ts": "vitest related --run",
