@@ -9,11 +9,17 @@ export type FirstKey<T> = T extends Record<infer K, any> ? K : never
 export type UseConfig<T extends object = any> = MaybePromise<Partial<T>>
 // #endregion
 
-// #region urls
+// #region polyfill types
 export type UrlLike = string | URL
 
 export type ReqLike = Request | UrlLike
 
+export type DateLike = string | Date
+
+export type IdLike = string | number
+// #endregion
+
+// #region urls
 export type Language = 'zh' | 'en'
 // TODO: Add transition rules
 export type WebsiteShowLanguage = 'zh_CN' | 'en_US'
@@ -93,7 +99,7 @@ export interface CourseInfo {
   chineseName: string
   englishName: string
   timeAndLocation: string[]
-  url: string | URL
+  url: UrlLike
   teacherName: string
   teacherNumber: string | number
   courseNumber: string | number
@@ -104,8 +110,8 @@ export interface CourseInfo {
 export interface RemoteFile {
   id: string | number
   name: string
-  downloadUrl: string | URL
-  previewUrl: string | URL
+  downloadUrl: UrlLike
+  previewUrl: UrlLike
   size: string | number
 }
 
@@ -118,7 +124,7 @@ export interface Notification extends NotificationDetail {
   title: string
   content: string
   hasRead: boolean
-  url: string | URL
+  url: UrlLike
   markedImportant: boolean
   publishTime: Date
   publisher: string
@@ -134,9 +140,9 @@ export interface File {
   description: string
   uploadTime: Date
   /** for teachers, this url will not initiate download directly */
-  downloadUrl: string | URL
+  downloadUrl: UrlLike
   /** preview is not supported on all types of files, check before use */
-  previewUrl: string | URL
+  previewUrl: UrlLike
   isNew: boolean
   markedImportant: boolean
   visitCount: number
@@ -156,8 +162,8 @@ export interface HomeworkBase extends HomeworkStatus {
   stuHomeworkId: string | number
   title: string
   deadline: Date
-  url: string | URL
-  submitUrl: string | URL
+  url: UrlLike
+  submitUrl: UrlLike
   submitTime?: Date
   grade?: number
   /** some homework has levels but not grades, like A/B/.../F */
@@ -228,12 +234,12 @@ export interface DiscussionBase {
 }
 
 export interface Discussion extends DiscussionBase {
-  url: string | URL
+  url: UrlLike
   boardId: string | number
 }
 
 export interface Question extends DiscussionBase {
-  url: string | URL
+  url: UrlLike
   question: string
 }
 
@@ -257,7 +263,9 @@ export interface Calendar {
   status: string
   startTime: string
   endTime: string
-  date: string | Date
+  date: DateLike
   courseName: string
 }
 // #endregion
+
+export type { MaybePromise, MaybeArray } from 'elysia/types'

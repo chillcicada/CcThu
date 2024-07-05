@@ -1,12 +1,12 @@
-import type { BaseResponse, Calendar, UseConfig } from '@/types'
+import type { BaseResponse, Calendar, DateLike, UseConfig } from '@/types'
 
 interface T {
   Calendar: Calendar[]
 }
 
 export interface CalendarConfig {
-  startDate: string | Date
-  endDate: string | Date
+  startDate: DateLike
+  endDate: DateLike
   graduate: boolean
 }
 
@@ -16,6 +16,11 @@ export default async function getCalendar(cfg: UseConfig<CalendarConfig> = {}): 
       cfg = await cfg
 
     // TODO
+    // const {
+    //   startDate = new Date(),
+    //   endDate,
+    //   graduate,
+    // } = cfg
 
     return {
       message: 'success',

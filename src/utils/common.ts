@@ -177,13 +177,9 @@ export async function fetchWithRetry(
         resolve(await fetchWithTimeout(url, options, rest))
       }
       catch (e) {
-        if (retry < maxRetry) {
-          retry++
-          setTimeout(fetcher, retryInterval)
-        }
-        else {
-          reject(e)
-        }
+        retry < maxRetry
+          ? setTimeout(fetcher, retryInterval) && retry++
+          : reject(e)
       }
     }
 
@@ -196,3 +192,9 @@ export async function fetchWithRetry(
 export function SetResponse<T>(res: Response): Promise<T> {
   return res.json()
 }
+
+/**
+ * Create a fail message for {@link BaseResponse}
+ * @param message - The message
+ */
+export const useFailMsg = (message: string) => ({ status: false, message })
