@@ -6,7 +6,7 @@ import type { Element } from 'domhandler'
 
 import { getCookie } from './cookie'
 
-import type { SemesterType } from '@/types'
+import type { BaseResponse, SemesterType } from '@/types'
 import { DEFAULT_RETRY_INTERVAL, DEFAULT_TIMEOUT, MAX_RETRY } from '@/constants'
 
 /**
@@ -194,7 +194,33 @@ export function SetResponse<T>(res: Response): Promise<T> {
 }
 
 /**
- * Create a fail message for {@link BaseResponse}
+ * Create a success message for {@link BaseResponse}
  * @param message - The message
  */
-export const useFailMsg = (message: string) => ({ status: false, message })
+export const useFail = (message: string): BaseResponse => ({ status: false, message })
+
+/**
+ * Create a fail message for {@link BaseResponse}
+ * @param e - The error to handle
+ * @param message - The message
+ * @param callback - The callback to run after handling the error
+ */
+export function useError(e: unknown, message: string, callback: (e: unknown) => void = () => { }): BaseResponse {
+  if (import.meta.env.NODE_ENV === 'development')
+    console.error(e)
+
+  callback(e)
+
+  return useFail(message)
+}
+
+/**
+ * A simple network test
+ */
+export function netTest(): BaseResponse<string> {
+  return {
+    message: 'Test Successfully',
+    data: new Date().toISOString(),
+    status: true,
+  }
+}

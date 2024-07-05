@@ -64,7 +64,7 @@
   },
   "lint-staged": {
     "*.test.ts": "vitest related --run",
-    "*.{ts,json}": "eslint --fix"
+    "*.{ts,json,yml}": "eslint --fix"
   },
   "tsup": {
     "entry": ["src/index.ts", "src/modules"],

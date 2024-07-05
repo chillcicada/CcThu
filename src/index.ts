@@ -3,11 +3,11 @@ import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 // import { cron } from '@elysiajs/cron'
 
-import { paramToModule } from './utils'
-import type { BaseResponse } from '@/types'
+import { FailReason } from './constants'
+import { netTest, paramToModule, useError, useFail } from './utils'
 
-interface ModulesPluginConfig {
-  apiVersion: `v${number}`
+export interface ModulesPluginConfig {
+  apiVersion: string
   modulesDir: string
   excludeModules: string[]
   // specialFiles: Record<string, string>
@@ -39,71 +39,40 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
         ..._rest // TODO
       } = req
 
-      const moduleNames = `${paramToModule(params['*'])}`
+      const moduleName = paramToModule(params['*'])
 
-      const modulePath = join(modulesPath, moduleNames)
+      const modulePath = join(modulesPath, moduleName)
 
-      if (excludeFiles.includes(moduleNames)) {
-        return {
-          status: 404,
-          message: 'Module not found',
-        }
-      }
+      // TODO: special files
+      if (excludeFiles.includes(moduleName))
+        return useFail(FailReason.ModuleNotFound)
 
       // TODO
       const args = query
 
-      try {
-        const func: Function = await import(modulePath).then(m => m.default)
-
-        return func(args)
-      }
-      catch (e) {
-        console.warn(`Module ${moduleNames} not found`)
-
-        if (import.meta.env.NODE_ENV === 'development')
-          console.error(e)
-
-        return {
-          status: 404,
-        }
-      }
+      return await import(modulePath).then(m => m.default).then(func => func(args))
+        .catch(e => useError(e, FailReason.InternetError, () => console.warn(`Module ${moduleName} not found`)))
     })
     .post(`/api/${apiVersion}/*`, async (req) => {
       const {
-        body,
+        body, // get method doesn't have body property
         params,
         ..._rest // TODO
       } = req
 
-      const moduleNames = `${paramToModule(params['*'])}.ts`
+      const moduleName = paramToModule(params['*'])
 
-      const modulePath = join(modulesPath, moduleNames)
+      const modulePath = join(modulesPath, moduleName)
 
-      if (excludeFiles.includes(moduleNames)) {
-        return {
-          status: 404,
-        }
-      }
+      // TODO: special files
+      if (excludeFiles.includes(moduleName))
+        useFail(FailReason.ModuleNotFound)
 
       // TODO
       const args = body
 
-      try {
-        const func: Function = await import(modulePath).then(m => m.default)
-
-        return func(args)
-      }
-      catch (e) {
-        console.warn(`Module ${moduleNames} not found`)
-
-        if (import.meta.env.NODE_ENV === 'development')
-          console.error(e)
-
-        return {
-          status: 404,
-        }
-      }
+      return await import(modulePath).then(m => m.default).then(func => func(args))
+        .catch(e => useError(e, FailReason.InternetError, () => console.warn(`Module ${moduleName} not found`)))
     })
 }
 
@@ -116,31 +85,10 @@ export const app = new Elysia()
   //   },
   // }))
   .use(swagger())
-  .use(modulesPluginGen())
-  .all('/', () => 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.')
-  .get('/test', (): BaseResponse<string> => {
-    return {
-      message: 'Test Successfully',
-      data: new Date().toISOString(),
-      status: true,
-    }
-  })
-  .post('/test', (): BaseResponse<string> => {
-    return {
-      message: 'Test Successfully',
-      data: new Date().toISOString(),
-      status: true,
-    }
-  })
-  .onError((e): BaseResponse => {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
-
-    return {
-      status: false,
-      message: `Unknown error, ${typeof e === 'string' ? e : 'unknown error'}`,
-    }
-  })
+  .use(modulesPluginGen(Bun.env.MODULE_VERSION || 'v1'))
+  .all('/', 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.') // TODO
+  .all('/test', netTest)
+  .onError(e => useError(e, FailReason.InternetError))
   .listen(Bun.env.PORT || 3000)
 
 export default app

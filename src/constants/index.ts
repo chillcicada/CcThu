@@ -43,3 +43,8 @@ export const HomeworkGradeLevel = {
   NA: 'NA',
 } as const
 // #endregion
+
+// #region constant modules
+export * from './fail-reason'
+export * from './special-modules'
+// #endregion
