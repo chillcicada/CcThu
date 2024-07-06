@@ -90,3 +90,9 @@ export const app = new Elysia()
   .listen(Bun.env.PORT || 3000)
 
 export default app
+
+/**
+ * GPL-3.0-only License
+ *
+ * Copyright (c) 2024 ChillCicada
+ */

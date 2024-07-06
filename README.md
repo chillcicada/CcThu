@@ -93,7 +93,7 @@ If you want to see, at [here](https://chillcicada.com/articles/endpapers_1#about
 
 <!-- - Q: 这是否会造成恶性竞争的情况？
 
-  A: 这个问题我在 [Afterwords](#afterwords) 里面也有提及，首先我是出于解决自身需求而决定开发这个项目的，其次，本项目的逻辑均是解析公开的界面内容，并以更精简的方式回复，此外，一些类似的项目也在被使用着，比如 [Thu-Info-Lib](https://www.npmjs.com/package/@thu-info/lib) 和 [Thu-Learn-Lib](https://www.npmjs.com/package/@thu-info/lib) 延伸的 [Learn-Helper](https://github.com/Harry-Chen/Learn-Helper) 和 [Thu-Info](https://github.com/thu-info-community/thu-info-app) 等，就目前的情况来看，这些项目并没有造成恶性竞争的情况。同时，出于更妥善的想法，本项目也以 GPL-3.0 协议开源，希望能够帮助到更多的人。
+  A: 这个问题我在 [Afterwords](#afterwords) 里面也有提及，首先我是出于解决自身需求而决定开发这个项目的，其次，本项目的逻辑均是解析公开的界面内容，并以更精简的方式回复，此外，一些类似的项目也在被使用着，比如 [Thu-Info-Lib](https://www.npmjs.com/package/@thu-info/lib) 和 [Thu-Learn-Lib](https://www.npmjs.com/package/@thu-info/lib) 延伸的 [Learn-Helper](https://github.com/Harry-Chen/Learn-Helper) 和 [Thu-Info](https://github.com/thu-info-community/thu-info-app) 等，就目前的情况来看，这些项目并没有造成恶性竞争的情况。同时，出于更妥善的想法，本项目也以 GPL-3.0 协议开源，希望能够帮助到更多的人，可以使用 `license-checker` 来查看所有依赖包的证书。
 
 - Q: 本项目是否会采取一些推广的手段，比如与官方合作，或是其他方式？
 
@@ -112,4 +112,6 @@ If you want to see, at [here](https://chillcicada.com/articles/endpapers_1#about
 
 ## License
 
-[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html)
+[GPL-3.0-only](https://www.gnu.org/licenses/gpl-3.0.html)
+
+> Hint: almost all devDependencies' licenses are GPLv3 compatible except the [argparse@2.0.1](https://github.com/nodeca/argparse), which is released under [Python-2.0](https://opensource.org/license/Python-2.0) license. [The Python-2.0 license is incompatible with GPL](https://www.gnu.org/licenses/license-list.en.html#PythonOld), [which is marked as no longer live and is set a short identifier as PSF-2.0 by spdx](https://spdx.org/licenses/PSF-2.0.html). But it must be noted that the `Python-2.0` and `PSF-2.0` are actually different licenses, and [the PSF-2.0 is compatible with GPL](https://www.gnu.org/licenses/license-list.en.html#Python). **What's more, judging by the [argparse@2.0.1's license](https://github.com/nodeca/argparse/blob/master/LICENSE) contents, it's actually under PSF-2.0 instead of Python-2.0.** But under [the page of spdx](https://spdx.org/licenses), the Python-2.0 is marked as `FSF Free/Libre` and `OSI Approved` while the PSF-2.0 (or Python-2.0.1) isn't. The relative discussions can be seen at [#162](https://github.com/nodeca/argparse/issues/162), [#170](https://github.com/nodeca/argparse/pull/170) and [#173](https://github.com/nodeca/argparse/pull/173). This is confused, and i consider the argparse@2.0.1 is released under `PSF-2.0` according to its license file, which means there is no incompatible devDependencies with GPLv3 in fact, and if you have any issues about this, please [let me know](https://github.com/chillcicada/CcThu/issues/new).
