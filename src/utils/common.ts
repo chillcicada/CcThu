@@ -7,7 +7,7 @@ import type { Element } from 'domhandler'
 import { getCookie } from './cookie'
 
 import type { BaseResponse, SemesterType } from '@/types'
-import { DEFAULT_RETRY_INTERVAL, DEFAULT_TIMEOUT, MAX_RETRY } from '@/constants'
+import { DEFAULT_RETRY_INTERVAL, DEFAULT_TIMEOUT, MAX_RETRY, SuccessMsg } from '@/constants'
 
 /**
  * Add a CSRF token to a URL
@@ -205,11 +205,21 @@ export const useFail = (message: string): BaseResponse => ({ status: false, mess
  * @param message - The message
  * @param callback - The callback to run after handling the error
  */
-export function useError(e: unknown, message: string, callback: (e: unknown) => void = () => { }): BaseResponse {
+export function useError(
+  e: unknown,
+  message = 'An error occurred!',
+  callback: (e: unknown) => void = () => { },
+): BaseResponse {
   if (import.meta.env.NODE_ENV === 'development')
     console.error(e)
 
   callback(e)
+
+  if (typeof e === 'string')
+    return useFail(e)
+
+  if (e instanceof Error)
+    return useFail(e.message)
 
   return useFail(message)
 }
@@ -217,9 +227,9 @@ export function useError(e: unknown, message: string, callback: (e: unknown) => 
 /**
  * A simple network test
  */
-export function netTest(): BaseResponse<string> {
+export function useTest(): BaseResponse<string> {
   return {
-    message: 'Test Successfully',
+    message: SuccessMsg.Test,
     data: new Date().toISOString(),
     status: true,
   }

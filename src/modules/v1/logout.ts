@@ -1,6 +1,7 @@
 import { Logout } from '@/urls/learn'
 import type { BaseResponse } from '@/types'
-import { fetchWithRetry, rmCookie } from '@/utils'
+import { fetchWithRetry, rmCookie, useError, useFail } from '@/utils'
+import { FailReason, SuccessMsg } from '@/constants'
 
 /**
  * Logout from the web learn
@@ -11,23 +12,17 @@ export default async function logout(): Promise<BaseResponse> {
   try {
     const res = await fetchWithRetry(Logout, { method: 'POST' })
 
-    if (res.ok)
+    if (res.ok) {
       await rmCookie()
-
-    return {
-      status: res.ok,
-      message: res.ok ? 'Logout Successfully' : 'Failed to logout',
+      return {
+        status: res.ok,
+        message: SuccessMsg.Logout,
+      }
     }
-  }
-  catch (e) {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
 
-    return {
-      status: false,
-      message: `Logout failed, ${typeof e === 'string' ? e : 'unknown error'}`,
-    }
+    return useFail(FailReason.LogoutError)
   }
+  catch (e) { return useError(e, FailReason.LogoutError) }
 }
 
 export { logout }

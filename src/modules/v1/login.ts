@@ -1,6 +1,7 @@
 import type { BaseResponse, UseConfig } from '@/types'
-import { fetchWithRetry, setCookie } from '@/utils'
+import { fetchWithRetry, setCookie, useError } from '@/utils'
 import { LearnAuth, Login } from '@/urls/learn'
+import { FailReason } from '@/constants'
 
 /**
  * Login form parameters for query
@@ -118,15 +119,7 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
       message: 'Login successfully',
     }
   }
-  catch (e) {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
-
-    return {
-      status: false,
-      message: `Login failed, ${typeof e === 'string' ? e : 'unknown error'}`,
-    }
-  }
+  catch (e) { return useError(e, FailReason.LoginError) }
 }
 
 export { login }

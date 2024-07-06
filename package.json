@@ -3,7 +3,7 @@
   "displayName": "ccThu",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "bun@1.1.16",
+  "packageManager": "bun@1.1.18",
   "author": {
     "name": "chillcicada",
     "email": "2210227279@qq.com"
@@ -53,6 +53,7 @@
     "entities": "^5.0.0",
     "eslint": "8.57.0",
     "eslint-plugin-format": "^0.1.2",
+    "image-size": "^1.1.1",
     "lint-staged": "^15.2.7",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.1.0",
@@ -60,11 +61,11 @@
     "vitest": "^1.6.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "bunx lint-staged && tsc --noEmit"
+    "pre-commit": "bunx lint-staged && bunx tsc --noEmit"
   },
   "lint-staged": {
-    "*.test.ts": "vitest related --run",
-    "*.{ts,json,yml}": "eslint --fix"
+    "*.test.?(c|m)[jt]s{,x}": "vitest related --run",
+    "*.{?(c|m)[jt]s{,x},json,y{,a}ml}": "eslint --fix"
   },
   "tsup": {
     "entry": ["src/index.ts", "src/modules"],

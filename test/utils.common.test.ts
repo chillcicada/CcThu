@@ -32,4 +32,24 @@ describe('utils/common', () => {
     expect(c.paramToModule('foo/bar')).toBe('foo-bar')
     expect(c.paramToModule('foo/bar/baz')).toBe('foo-bar-baz')
   })
+
+  it('should use fail', () => {
+    expect(c.useFail('string error')).toMatchSnapshot()
+  })
+
+  it('should use error', () => {
+    expect(c.useError('string error')).toMatchSnapshot()
+
+    const err = new Error('error')
+    expect(c.useError(err)).toMatchSnapshot()
+
+    const unknownErr = { reason: 'error' }
+    expect(c.useError(unknownErr)).toMatchSnapshot()
+
+    expect(c.useError(null, 'error msg')).toMatchSnapshot()
+  })
+
+  it('should use test', () => {
+    expect(c.useTest().status).toBe(true)
+  })
 })

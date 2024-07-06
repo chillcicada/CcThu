@@ -47,4 +47,5 @@ export const HomeworkGradeLevel = {
 // #region constant modules
 export * from './fail-reason'
 export * from './special-modules'
+export * from './success-msg'
 // #endregion

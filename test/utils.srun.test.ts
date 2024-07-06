@@ -10,6 +10,4 @@ describe('utils/srun', () => {
   it('should encode', () => {
     expect(r.xEncodeBase64(r.xEncode('str', 'key'))).toBe('sLYfdgWlbBL=')
   })
-
-  // sadly that we can't test decode
 })

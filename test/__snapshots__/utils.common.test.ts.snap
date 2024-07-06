@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`utils/common > should use error 1`] = `
+{
+  "message": "string error",
+  "status": false,
+}
+`;
+
+exports[`utils/common > should use error 2`] = `
+{
+  "message": "error",
+  "status": false,
+}
+`;
+
+exports[`utils/common > should use error 3`] = `
+{
+  "message": "An error occurred!",
+  "status": false,
+}
+`;
+
+exports[`utils/common > should use error 4`] = `
+{
+  "message": "error msg",
+  "status": false,
+}
+`;
+
+exports[`utils/common > should use fail 1`] = `
+{
+  "message": "string error",
+  "status": false,
+}
+`;

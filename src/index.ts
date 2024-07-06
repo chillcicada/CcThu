@@ -4,7 +4,7 @@ import { swagger } from '@elysiajs/swagger'
 // import { cron } from '@elysiajs/cron'
 
 import { FailReason } from './constants'
-import { netTest, paramToModule, useError, useFail } from './utils'
+import { paramToModule, useError, useFail, useTest } from './utils'
 
 export interface ModulesPluginConfig {
   apiVersion: string
@@ -80,14 +80,12 @@ export const app = new Elysia()
   // .use(cron({
   //   name: 'zzz',
   //   pattern: '*/5 * * * * *',
-  //   run: () => {
-  //     console.log('zzz')
-  //   },
+  //   run: () => console.log('zzz'),
   // }))
   .use(swagger())
   .use(modulesPluginGen(Bun.env.MODULE_VERSION || 'v1'))
   .all('/', 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.') // TODO
-  .all('/test', netTest)
+  .all('/test', useTest)
   .onError(e => useError(e, FailReason.InternetError))
   .listen(Bun.env.PORT || 3000)
 

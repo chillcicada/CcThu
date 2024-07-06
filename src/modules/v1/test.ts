@@ -1,3 +1,3 @@
-import { netTest } from '@/utils'
+import { useTest } from '@/utils'
 
-export default netTest
+export default useTest
