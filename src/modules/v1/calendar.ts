@@ -1,4 +1,5 @@
 import type { BaseResponse, Calendar, DateLike, UseConfig } from '@/types'
+import { fetchWithRetry, useError } from '@/utils'
 
 interface T {
   Calendar: Calendar[]
@@ -22,20 +23,15 @@ export default async function getCalendar(cfg: UseConfig<CalendarConfig> = {}): 
     //   graduate,
     // } = cfg
 
+    const res = await fetchWithRetry('https://api.hanyang.ac.kr/v1/calendar', {}).then(res => res.json())
+
     return {
       message: 'success',
+      data: res,
       status: true,
     }
   }
-  catch (e) {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
-
-    return {
-      message: 'error',
-      status: false,
-    }
-  }
+  catch (e) { return useError(e, 'Fail to get calendar!') }
 }
 
 export { getCalendar }

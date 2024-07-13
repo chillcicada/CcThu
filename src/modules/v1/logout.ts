@@ -1,7 +1,8 @@
 import { Logout } from '@/urls/learn'
 import type { BaseResponse } from '@/types'
 import { fetchWithRetry, rmCookie, useError, useFail } from '@/utils'
-import { FailReason, SuccessMsg } from '@/constants'
+
+const LogoutError = 'Fail to logout!'
 
 /**
  * Logout from the web learn
@@ -16,13 +17,13 @@ export default async function logout(): Promise<BaseResponse> {
       await rmCookie()
       return {
         status: res.ok,
-        message: SuccessMsg.Logout,
+        message: 'Logout successfully',
       }
     }
 
-    return useFail(FailReason.LogoutError)
+    return useFail(LogoutError)
   }
-  catch (e) { return useError(e, FailReason.LogoutError) }
+  catch (e) { return useError(e, LogoutError) }
 }
 
 export { logout }

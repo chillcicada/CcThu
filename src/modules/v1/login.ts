@@ -1,7 +1,6 @@
 import type { BaseResponse, UseConfig } from '@/types'
 import { fetchWithRetry, setCookie, useError } from '@/utils'
 import { LearnAuth, Login } from '@/urls/learn'
-import { FailReason } from '@/constants'
 
 /**
  * Login form parameters for query
@@ -119,7 +118,7 @@ export default async function login(cfg: UseConfig<LoginConfig> = {}): Promise<B
       message: 'Login successfully',
     }
   }
-  catch (e) { return useError(e, FailReason.LoginError) }
+  catch (e) { return useError(e, 'Fail to login!') }
 }
 
 export { login }

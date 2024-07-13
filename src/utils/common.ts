@@ -7,7 +7,7 @@ import type { Element } from 'domhandler'
 import { getCookie } from './cookie'
 
 import type { BaseResponse, SemesterType } from '@/types'
-import { DEFAULT_RETRY_INTERVAL, DEFAULT_TIMEOUT, MAX_RETRY, SuccessMsg } from '@/constants'
+import { DEFAULT_RETRY_INTERVAL, DEFAULT_TIMEOUT, MAX_RETRY } from '@/constants'
 
 /**
  * Add a CSRF token to a URL
@@ -229,7 +229,7 @@ export function useError(
  */
 export function useTest(): BaseResponse<string> {
   return {
-    message: SuccessMsg.Test,
+    message: 'Test successfully',
     data: new Date().toISOString(),
     status: true,
   }

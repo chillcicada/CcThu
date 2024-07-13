@@ -3,15 +3,15 @@ import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 // import { cron } from '@elysiajs/cron'
 
-import { FailReason } from './constants'
-import { paramToModule, useError, useFail, useTest } from './utils'
+import { paramToModule, useError, useTest } from './utils'
 
 export interface ModulesPluginConfig {
   apiVersion: string
   modulesDir: string
-  excludeModules: string[]
   // specialFiles: Record<string, string>
 }
+
+const InternetError = 'Internet error!'
 
 /**
  * Modules Plugin
@@ -25,7 +25,6 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
   const {
     apiVersion = 'v1',
     modulesDir = 'modules',
-    excludeModules: excludeFiles = [],
     // specialFiles = {},
   } = cfg
 
@@ -44,14 +43,12 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
       const modulePath = join(modulesPath, moduleName)
 
       // TODO: special files
-      if (excludeFiles.includes(moduleName))
-        return useFail(FailReason.ModuleNotFound)
 
       // TODO
       const args = query
 
       return await import(modulePath).then(m => m.default).then(func => func(args))
-        .catch(e => useError(e, FailReason.InternetError, () => console.warn(`Module ${moduleName} not found`)))
+        .catch(e => useError(e, InternetError, () => console.warn(`Module ${moduleName} not found`)))
     })
     .post(`/api/${apiVersion}/*`, async (req) => {
       const {
@@ -65,14 +62,12 @@ function modulesPluginGen(cfg: Partial<ModulesPluginConfig> | ModulesPluginConfi
       const modulePath = join(modulesPath, moduleName)
 
       // TODO: special files
-      if (excludeFiles.includes(moduleName))
-        useFail(FailReason.ModuleNotFound)
 
       // TODO
       const args = body
 
       return await import(modulePath).then(m => m.default).then(func => func(args))
-        .catch(e => useError(e, FailReason.InternetError, () => console.warn(`Module ${moduleName} not found`)))
+        .catch(e => useError(e, InternetError, () => console.warn(`Module ${moduleName} not found`)))
     })
 }
 
@@ -86,13 +81,13 @@ export const app = new Elysia()
   .use(modulesPluginGen(Bun.env.MODULE_VERSION || 'v1'))
   .all('/', 'Hello, here is cc. This project is 🚧 working in process 🚧, please wait for the release.') // TODO
   .all('/test', useTest)
-  .onError(e => useError(e, FailReason.InternetError))
+  .onError(e => useError(e, InternetError))
   .listen(Bun.env.PORT || 3000)
 
 export default app
 
-/**
+/*!
  * GPL-3.0-only License
  *
- * Copyright (c) 2024 ChillCicada
+ * Copyright (c) 2024 ChillCicada <2210227279@qq.com>
  */

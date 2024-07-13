@@ -1,5 +1,5 @@
 import type { BaseResponse, IdentityType, UseConfig } from '@/types'
-import { $, fetchWithRetry } from '@/utils'
+import { $, fetchWithRetry, useError } from '@/utils'
 import { HomePage } from '@/urls/learn'
 
 interface T {
@@ -52,15 +52,7 @@ export default async function getUserInfo(cfg: UseConfig<UserInfoConfig> = {}): 
       message: 'Get user info successfully',
     }
   }
-  catch (e) {
-    if (import.meta.env.NODE_ENV === 'development')
-      console.error(e)
-
-    return {
-      status: false,
-      message: typeof e === 'string' ? e : 'Unknown error',
-    }
-  }
+  catch (e) { return useError(e, 'Fail to get user info!') }
 }
 
 export { getUserInfo }
