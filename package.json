@@ -40,7 +40,7 @@
     "postinstall": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.21.2",
+    "@antfu/eslint-config": "^3.0.0",
     "@elysiajs/cron": "^1.0.3",
     "@elysiajs/eden": "^1.0.14",
     "@elysiajs/swagger": "^1.0.5",
