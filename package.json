@@ -51,7 +51,7 @@
     "domhandler": "^5.0.3",
     "elysia": "^1.0.27",
     "entities": "^7.0.0",
-    "eslint": "9.38.0",
+    "eslint": "9.39.0",
     "eslint-plugin-format": "^1.0.0",
     "image-size": "^2.0.0",
     "lint-staged": "^16.0.0",
