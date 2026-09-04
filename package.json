@@ -3,7 +3,7 @@
   "displayName": "ccThu",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "bun@1.1.18",
+  "packageManager": "bun@1.4.0",
   "author": {
     "name": "chillcicada",
     "email": "2210227279@qq.com"
