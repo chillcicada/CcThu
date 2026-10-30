@@ -50,7 +50,7 @@
     "cheerio": "^1.0.0-rc.12",
     "domhandler": "^6.0.0",
     "elysia": "^1.0.27",
-    "entities": "^8.0.0",
+    "entities": "^9.0.0",
     "eslint": "9.39.2",
     "eslint-plugin-format": "^2.0.0",
     "image-size": "^2.0.0",
